@@ -1,0 +1,32 @@
+# hourlyrate.sty
+# Typesetting effective-hourly-rate comparison tables.
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{hourlyrate}[2026/10/23 v0.1.0 Effective-hourly-rate comparison tables]
+\RequirePackage{array}
+
+% --- main table environment -------------------------------------------
+% \begin{hourlyrate}{Title}
+%   \hrassum{assumptions line}
+%   \hrrow{Item}{Stated rate}{Hidden costs}{Real hourly rate}
+%   ...
+%   \hrnote{small-print note}
+% \end{hourlyrate}
+\newenvironment{hourlyrate}[1]{%
+  \par\medskip\noindent
+  \begin{tabular}{@{}p{0.34\textwidth}rrr@{}}%
+  \multicolumn{4}{@{}l@{}}{\textbf{#1}}\\[2pt]
+  \textbf{Item} & \textbf{Stated rate} & \textbf{Hidden costs} & \textbf{Real hourly}\\\\
+}{%
+  \end{tabular}\par\medskip
+}
+
+% \hrassum{text}: assumptions line under the title row
+\newcommand{\hrassum}[1]{\multicolumn{4}{@{}l@{}}{\footnotesize\itshape #1}\\[2pt]}
+
+% \hrrow{item}{stated rate}{hidden costs}{real hourly rate}: one row
+\newcommand{\hrrow}[4]{#1 & #2 & #3 & #4\\}
+
+% \hrnote{text}: small-print note under the table
+\newcommand{\hrnote}[1]{\multicolumn{4}{@{}p{0.98\textwidth}@{}}{\footnotesize #1}\\}
+
+\endinput
